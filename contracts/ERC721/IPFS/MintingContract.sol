@@ -13,6 +13,7 @@ contract MintingContract is ERC721, Ownable {
     error InvalidValue();
     error MintLimitReached();
     error MaxSupplyReached();
+    error WithdrawalFailed();
 
     /**
         * @dev This contracts mints 1 token per transaction, for batch minting visit {../ERC721A}
@@ -72,4 +73,13 @@ contract MintingContract is ERC721, Ownable {
     function switchSaleStatus() external onlyOwner {
         SALE_OPEN = SALE_OPEN ? false : true;
     }
+
+     /**
+        * @dev used for withdrawing funds
+    */
+    function withdraw() external onlyOwner {
+        uint balance = address(this).balance;
+        (bool sent, ) = msg.sender.call{value: balance}("");
+        if (!sent) revert WithdrawalFailed();
+    } 
 }
