@@ -16,7 +16,7 @@ contract MintingContract is ERC721, Ownable {
     error WithdrawalFailed();
 
     /**
-        * @dev This contracts mints 1 token per transaction, for batch minting visit {../ERC721A}
+        * @dev This contract mints 1 token per transaction, for batch minting visit {../ERC721A}
         * Remember to change the name of the contract
         * In certain unlikely scenarios, there must be changes made to the contract
         * MAX_MINT_PER_ADDRESS must be changed to uint64 if the supply is above 255

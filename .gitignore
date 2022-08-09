@@ -360,3 +360,6 @@ hardhat.config
 
 #secrets
 secrets.json
+
+#images
+*.png
