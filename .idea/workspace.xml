@@ -18,17 +18,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Programming/first-time-solidity",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Users\\David\\AppData\\Local\\JetBrains\\Toolbox\\apps\\WebStorm\\ch-0\\221.5921.27\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Programming\first-time-solidity\contracts\ERC721\IPFS\generator" />
@@ -44,6 +39,7 @@
       <option name="presentableId" value="Default" />
       <updated>1660082626223</updated>
       <workItem from="1660082628315" duration="4511000" />
+      <workItem from="1660436348537" duration="32000" />
     </task>
     <servers />
   </component>
