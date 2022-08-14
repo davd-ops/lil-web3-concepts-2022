@@ -12,10 +12,7 @@ describe('ERC721', function () {
   beforeEach(async function () {
     contract = await ethers.getContractFactory('MintingContract');
 
-    const network = 'homestead'; // The mainnet
-    provider = ethers.getDefaultProvider(network, {
-      infura: 'b51a92ba9a4f4092aa548938d47cb402',
-    });
+    provider = await ethers.provider;
 
     [owner, user, ...address] = await ethers.getSigners();
       
@@ -62,6 +59,15 @@ describe('ERC721', function () {
       expect(await contract.mintedAmountByAddress(owner.address)).to.equal(2);
       expect(await contract.ownerOf(1)).to.equal(owner.address);
       expect(await contract.ownerOf(2)).to.equal(owner.address);
+    });
+  });
+  describe('Withdrawing', function() {
+    it('Should be able to withdraw funds', async function() {
+      await contract.switchSaleStatus();
+      await contract.mint({value: MINT_PRICE_WEI});
+      expect(await provider.getBalance(contract.address)).to.equal(MINT_PRICE_WEI);
+      await contract.withdraw();
+      expect(await provider.getBalance(contract.address)).to.equal(0);
     });
   });
 });
