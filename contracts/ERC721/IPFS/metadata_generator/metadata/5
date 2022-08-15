@@ -1,11 +1,11 @@
 {
-  "name": "TEST PROJECT 1",
-  "description": "This is token 1 of collection TEST PROJECT",
-  "image": "ipfs://bafkreiabnxnjlj3beg3b6kqo3x5yv3zmuwua54dvsakma5ljllxwr344ju",
+  "name": "TEST PROJECT 5",
+  "description": "This is token 5 of collection TEST PROJECT",
+  "image": "ipfs://bafkreiceo7xtm6rcm63vp2dqlwg74q4d6rbbbthipify345mj3pn3f4cre",
   "attributes": [
     {
       "trait_type": "background",
-      "value": "Golden Background"
+      "value": "Blue Background"
     },
     {
       "trait_type": "body",
@@ -17,11 +17,11 @@
     },
     {
       "trait_type": "clothes",
-      "value": "White tee"
+      "value": "Red hoodie"
     },
     {
       "trait_type": "hat",
-      "value": "None"
+      "value": "No-cap Cap"
     }
   ]
 }

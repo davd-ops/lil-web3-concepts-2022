@@ -1,0 +1,27 @@
+{
+  "name": "TEST PROJECT 9",
+  "description": "This is token 9 of collection TEST PROJECT",
+  "image": "ipfs://bafkreigcws6hufbet34byzfnb2zfzm76n7q3lqu22au2qf3q3vbckqwgzu",
+  "attributes": [
+    {
+      "trait_type": "background",
+      "value": "Pink Background"
+    },
+    {
+      "trait_type": "body",
+      "value": "White skin"
+    },
+    {
+      "trait_type": "accessories",
+      "value": "Blue Earring"
+    },
+    {
+      "trait_type": "clothes",
+      "value": "Yellow tee"
+    },
+    {
+      "trait_type": "hat",
+      "value": "Just a hat"
+    }
+  ]
+}

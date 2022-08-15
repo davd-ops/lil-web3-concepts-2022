@@ -1,0 +1,27 @@
+{
+  "name": "TEST PROJECT 7",
+  "description": "This is token 7 of collection TEST PROJECT",
+  "image": "ipfs://bafkreibfeid7vqkvqghdn4tpux6jlmmrqbqvnuo7hiq75dodut3izm27fa",
+  "attributes": [
+    {
+      "trait_type": "background",
+      "value": "Blue Background"
+    },
+    {
+      "trait_type": "body",
+      "value": "Dark skin"
+    },
+    {
+      "trait_type": "accessories",
+      "value": "Yellow Earring"
+    },
+    {
+      "trait_type": "clothes",
+      "value": "Red hoodie"
+    },
+    {
+      "trait_type": "hat",
+      "value": "No-cap Cap"
+    }
+  ]
+}

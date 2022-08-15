@@ -7,7 +7,9 @@ const client = (typeof token === "string") ? new Web3Storage({ token }) : undefi
 
 const uploadMetadataToIPFS = async () => {
     const files = await getFilesFromPath('./metadata/')
-    return await client?.put(files)
+    return await client?.put(files, {
+        wrapWithDirectory: false
+    })
 }
 
 const upload = async () => {
@@ -18,9 +20,17 @@ const upload = async () => {
             console.log(err)
         }
 
-        console.log(
-            `\n\n******************************** \n\n        UPLOAD FINISHED SUCCESSFULLY \n\n        BASE URI = ${BASE_URI} \n\n ********************************\n\n`
-        )
+        if (typeof BASE_URI !== 'undefined') {
+            console.log(
+                `\n\n******************************** \n\n        UPLOAD FINISHED SUCCESSFULLY \n\n        BASE URI = ipfs://${BASE_URI}/ \n\n ********************************\n\n`
+            )
+        } else {
+            console.log(
+                `\n\n******************************** \n\nTHE WEB3.STORAGE SERVICE IS CURRENTLY DOWN \n\n        BASE URI is ${BASE_URI} \n\n ********************************\n\n`
+            )
+        }
+
+        
 }
 
 
@@ -29,5 +39,3 @@ console.log(
 )
 
 upload()
-
-//TODO: UPLOAD WITHOUT THE FILE NAMES, STRAIGHT UNDER CID

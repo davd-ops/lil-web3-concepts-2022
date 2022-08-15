@@ -1,7 +1,7 @@
 {
-  "name": "TEST PROJECT 2",
-  "description": "This is token 2 of collection TEST PROJECT",
-  "image": "ipfs://bafkreib6ulyhkieqv76ypx32qgrrrqr33wnwrpi4pdj46qkgozawxxbsc4",
+  "name": "TEST PROJECT 10",
+  "description": "This is token 10 of collection TEST PROJECT",
+  "image": "ipfs://bafkreifnhkbkyrfofgk35ccwu3rd3uy33r3rg64vqmh5yezpe7w4lobrai",
   "attributes": [
     {
       "trait_type": "background",
@@ -13,7 +13,7 @@
     },
     {
       "trait_type": "accessories",
-      "value": "Laser eyes"
+      "value": "Blue Earring"
     },
     {
       "trait_type": "clothes",
@@ -21,7 +21,7 @@
     },
     {
       "trait_type": "hat",
-      "value": "No-cap Cap"
+      "value": "Just a hat"
     }
   ]
 }

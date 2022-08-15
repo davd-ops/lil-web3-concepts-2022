@@ -242,7 +242,9 @@ const selectRandomTraitUsingWeightedRarities = (options: Array<MetadataObject>) 
 
 const uploadImageToIPFS = async (tokenId: number) => {
     const files = await getFilesFromPath(`./outcome/${tokenId}.png`)
-    const cid = await client?.put(files)
+    const cid = await client?.put(files, {
+        wrapWithDirectory: false
+    })
     return cid
 }
 
@@ -251,30 +253,24 @@ const uploadImageToIPFS = async (tokenId: number) => {
 */
 const generateImage = async (traits: Array<MetadataObject>, tokenId: number) => {    
 
-        sharp(traits[0].image) //the background
+        await sharp(traits[0].image) //the background
         .composite([ //input all traits here
             { input: traits[1].image },
             { input: traits[2].image },
             { input: traits[3].image },
             { input: traits[4].image },
         ])
-        .toFile(`./outcome/${tokenId}.png`, (err: any) => { 
+        .toFile(`./outcome/${tokenId}.png`, async (err: any, data:any) => { 
             if (err){
                 console.log(
                     `\n\n******************************** \n\n        ${typeof err !== null ? err : null} \n\n ********************************\n\n`
                 )
                 throw Error (err?.message)
             }
+            const cid = await uploadImageToIPFS(tokenId)
+            await generateMetadata(traits, tokenId, cid)
          })
-
-         return await uploadImageToIPFS(tokenId)
 }
-
-// const uploadImagesToIPFS = async (traits: Array<object>) => {
-//     const files = await getFilesFromPath('/path/to/file')
-//     const cid = await client.put(files)
-//     console.log(cid)
-// }
 
 /**
     * @dev needs to be updated with every new trait
@@ -283,27 +279,27 @@ const generateMetadata = async (traits: Array<MetadataObject>, tokenId: number, 
     const metadata = {
         name: `${PROJECT_NAME} ${tokenId}`,
         description: `This is token ${tokenId} of collection ${PROJECT_NAME}`, 
-        image: `ipfs://${cid}/${tokenId}.png`, 
+        image: `ipfs://${cid}`, 
         attributes: [
             {
                 trait_type: traits[0].trait_type, 
-                value: traits[0].image,
+                value: traits[0].name,
             }, 
             {
                 trait_type: traits[1].trait_type, 
-                value: traits[1].image,
+                value: traits[1].name,
             }, 
             {
                 trait_type: traits[2].trait_type, 
-                value: traits[2].image,
+                value: traits[2].name,
             }, 
             {
                 trait_type: traits[3].trait_type, 
-                value: traits[3].image,
+                value: traits[3].name,
             }, 
             {
                 trait_type: traits[4].trait_type, 
-                value: traits[4].image,
+                value: traits[4].name,
             }, 
         ], 
     }
@@ -319,8 +315,7 @@ const generate = async (numberOfTokens: number) => {
         })
 
         try {
-            const cid = await generateImage(selectedTraits, tokenId)
-            await generateMetadata(selectedTraits, tokenId, cid)
+            await generateImage(selectedTraits, tokenId)
         } catch(err) {
             console.log(err)
         }
@@ -338,5 +333,5 @@ console.log(
 /**
     * @dev run with the totalSupply
 */
-generate(2)
+generate(10)
    
