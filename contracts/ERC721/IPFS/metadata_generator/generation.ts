@@ -1,5 +1,12 @@
 
 const sharp = require('sharp');
+const fs = require('fs');
+import { Web3Storage, getFilesFromPath, CIDString } from 'web3.storage'
+require('dotenv').config({ path: '../../../../.env' })
+ 
+
+const token = process.env.IPFS_API_KEY
+const client = (typeof token === "string") ? new Web3Storage({ token }) : undefined
 
 const PROJECT_NAME = 'TEST PROJECT'
 
@@ -205,7 +212,9 @@ const accessories:MetadataObject[] = [
     },
 ]
 
-//sort these from background to the front
+/**
+    * @dev sort these from background to the front
+*/
 const traits: {[index: string]:any} = { 
     background,
     body,
@@ -231,6 +240,15 @@ const selectRandomTraitUsingWeightedRarities = (options: Array<MetadataObject>) 
     return options[i]
 }
 
+const uploadImageToIPFS = async (tokenId: number) => {
+    const files = await getFilesFromPath(`./outcome/${tokenId}.png`)
+    const cid = await client?.put(files)
+    return cid
+}
+
+/**
+    * @dev needs to be updated with every new trait
+*/
 const generateImage = async (traits: Array<MetadataObject>, tokenId: number) => {    
 
         sharp(traits[0].image) //the background
@@ -248,13 +266,24 @@ const generateImage = async (traits: Array<MetadataObject>, tokenId: number) => 
                 throw Error (err?.message)
             }
          })
+
+         return await uploadImageToIPFS(tokenId)
 }
 
-const generateMetadata = async (traits: Array<MetadataObject>, tokenId: number) => {
+// const uploadImagesToIPFS = async (traits: Array<object>) => {
+//     const files = await getFilesFromPath('/path/to/file')
+//     const cid = await client.put(files)
+//     console.log(cid)
+// }
+
+/**
+    * @dev needs to be updated with every new trait
+*/
+const generateMetadata = async (traits: Array<MetadataObject>, tokenId: number, cid: CIDString | undefined) => {
     const metadata = {
         name: `${PROJECT_NAME} ${tokenId}`,
         description: `This is token ${tokenId} of collection ${PROJECT_NAME}`, 
-        image: '', 
+        image: `ipfs://${cid}/${tokenId}.png`, 
         attributes: [
             {
                 trait_type: traits[0].trait_type, 
@@ -278,38 +307,36 @@ const generateMetadata = async (traits: Array<MetadataObject>, tokenId: number) 
             }, 
         ], 
     }
-}
 
-const uploadToIPFS = (traits: Array<object>) => {
-
-}
-
-const uploadImagesToIPFS = (traits: Array<object>) => {
-
+    fs.writeFileSync(`./metadata/${tokenId}`, JSON.stringify(metadata, null, 2)); 
 }
 
 const generate = async (numberOfTokens: number) => {
-    for(let tokenId:number = 0; tokenId < numberOfTokens; tokenId++) {
+    for(let tokenId:number = 1; tokenId <= numberOfTokens; tokenId++) {
         const selectedTraits:MetadataObject[] = []
         Object.keys(traits).forEach((element: string) => {
             selectedTraits.push(selectRandomTraitUsingWeightedRarities(traits[element]))
         })
 
         try {
-            await generateImage(selectedTraits, tokenId)
-            await generateMetadata(selectedTraits, tokenId)
-            //await uploadImagesToIPFS() //TODO
-            //await uploadToIPFS() //TODO
+            const cid = await generateImage(selectedTraits, tokenId)
+            await generateMetadata(selectedTraits, tokenId, cid)
         } catch(err) {
             console.log(err)
         }
     }
+    console.log(
+        '\n\n******************************** \n\n        GENERATION FINISHED SUCCESSFULLY \n\n ********************************\n\n'
+    )
 }
 
 
 console.log(
-    '\n\n******************************** \n\n        PROGRAM INITIATED \n\n ********************************\n\n'
+    '\n\n******************************** \n\n        GENERATION INITIATED \n\n ********************************\n\n'
 )
 
+/**
+    * @dev run with the totalSupply
+*/
 generate(2)
    

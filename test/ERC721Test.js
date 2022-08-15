@@ -8,6 +8,7 @@ describe('ERC721', function () {
   const MAX_SUPPLY = 8888;
   const MINT_PRICE = 0.1; //in ether
   const MINT_PRICE_WEI = ethers.utils.parseEther(MINT_PRICE.toString());
+  const BASE_URI = 'ipfs://cid/'
 
   beforeEach(async function () {
     contract = await ethers.getContractFactory('MintingContract');
@@ -59,6 +60,14 @@ describe('ERC721', function () {
       expect(await contract.mintedAmountByAddress(owner.address)).to.equal(2);
       expect(await contract.ownerOf(1)).to.equal(owner.address);
       expect(await contract.ownerOf(2)).to.equal(owner.address);
+    });
+  });
+  describe('Setting up BASE_URI', function() {
+    it('Should be able to setup BASE_URI', async function() {
+      await contract.switchSaleStatus();
+      await contract.mint({value: MINT_PRICE_WEI});
+      await contract.setBaseURI(BASE_URI);
+      expect(await contract.tokenURI(1)).to.equal(BASE_URI + '1');
     });
   });
   describe('Withdrawing', function() {

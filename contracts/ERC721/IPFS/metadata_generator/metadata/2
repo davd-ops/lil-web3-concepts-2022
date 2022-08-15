@@ -1,0 +1,27 @@
+{
+  "name": "TEST PROJECT 2",
+  "description": "This is token 2 of collection TEST PROJECT",
+  "image": "ipfs://bafybeidggkfpuis4catfynndepmqiang5a5snf2lqb3qjjyzyivz5uvaay",
+  "attributes": [
+    {
+      "trait_type": "background",
+      "value": "./traits/background/pink.png"
+    },
+    {
+      "trait_type": "body",
+      "value": "./traits/body/yellow_body.png"
+    },
+    {
+      "trait_type": "accessories",
+      "value": "./traits/accessories/blue_earring.png"
+    },
+    {
+      "trait_type": "clothes",
+      "value": "./traits/clothes/blue_hoodie.png"
+    },
+    {
+      "trait_type": "hat",
+      "value": "./traits/none_trait.png"
+    }
+  ]
+}

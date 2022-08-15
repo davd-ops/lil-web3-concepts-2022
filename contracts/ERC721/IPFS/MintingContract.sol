@@ -3,7 +3,6 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-// import"./ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "hardhat/console.sol";
 
@@ -29,6 +28,7 @@ contract MintingContract is ERC721, Ownable {
     uint32 immutable public MAX_SUPPLY; 
     uint32 public totalSupply; 
     uint64 public MINT_PRICE; 
+    string internal BASE_URI;
 
     mapping (address => uint32) public mintedAmountByAddress; 
 
@@ -48,6 +48,14 @@ contract MintingContract is ERC721, Ownable {
         MAX_MINT_PER_ADDRESS = _MAX_MINT_PER_ADDRESS;
         MAX_SUPPLY = _MAX_SUPPLY;
         MINT_PRICE = _MINT_PRICE;
+    }
+
+    /**
+     * @dev Base URI for computing {tokenURI}. If set, the resulting URI for each
+     * token will be the concatenation of the `baseURI` and the `tokenId`.
+     */
+    function _baseURI() internal view override returns (string memory) {
+        return BASE_URI;
     }
 
     /**
@@ -82,4 +90,12 @@ contract MintingContract is ERC721, Ownable {
         (bool sent, ) = msg.sender.call{value: balance}("");
         if (!sent) revert WithdrawalFailed();
     } 
+
+    /**
+     * @dev used to setup BASE_URI, which will be used for computing tokenURI
+     * make sure that your URI ends up with /
+     */
+    function setBaseURI(string calldata _newBaseURI) external onlyOwner {
+        BASE_URI = _newBaseURI;
+    }
 }
