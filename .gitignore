@@ -360,7 +360,7 @@ PredictionMarkets.zip
 #Hardhat files
 cache
 artifacts
-hardhat.config
+hardhat.config.js
 
 #secrets
 secrets.json
