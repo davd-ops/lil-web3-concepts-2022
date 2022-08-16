@@ -31,11 +31,6 @@ describe('ERC721', function () {
       expect(await contract.MINT_PRICE()).to.equal(MINT_PRICE_WEI);
     });
   });
-  describe('DoSmth', function() {
-    it('Should DoSmth', async function() {
-      expect(await contract.MINT_PRICE()).to.equal(MINT_PRICE_WEI);
-    });
-  });
   describe('Minting', function() {
     it('Should be able to switch sale status', async function() {
       expect(await contract.SALE_OPEN()).to.equal(false);

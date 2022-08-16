@@ -349,9 +349,13 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
+#idk
 node_modules
 theory
 PredictionMarkets.zip
+
+#IDE files
+.idea
 
 #Hardhat files
 cache
