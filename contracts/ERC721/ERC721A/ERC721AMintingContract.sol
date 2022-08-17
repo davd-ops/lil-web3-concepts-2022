@@ -8,5 +8,4 @@ import "hardhat/console.sol";
 
 contract ERC721AMintingContract is ERC721A, Ownable {
 
-   
 }

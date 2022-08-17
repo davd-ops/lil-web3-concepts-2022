@@ -32,8 +32,8 @@ contract ERC721MintingContract is ERC721, Ownable {
     mapping (address => uint32) public mintedAmountByAddress; 
 
     /**
-        * @dev intitializes contract with a `name`, `symbol`, `MAX_MINT_PER_WALLET`, 
-        * `MAX_SUPPLY`, `totalSupply` and a `MINT_PRICE` variables 
+        * @dev intitializes contract with a `name`, `symbol`, 
+        *  `MAX_MINT_PER_WALLET`, `MAX_SUPPLY` and a `MINT_PRICE` variables 
     */
     constructor(
         string memory _name,
