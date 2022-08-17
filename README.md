@@ -6,4 +6,4 @@
 #### [BATCH MINTING - ERC-721A](contracts/ERC721/ERC721A) 
 
 ## [IPFS](scripts/IPFS)
-##### [Trait generation + IPFS upload script](scripts/IPFS)
+#### [Trait generation + IPFS upload script](scripts/IPFS)
