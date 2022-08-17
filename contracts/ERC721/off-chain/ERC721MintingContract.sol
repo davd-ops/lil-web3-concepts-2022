@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "hardhat/console.sol";
 
-contract MintingContract is ERC721, Ownable {
+contract ERC721MintingContract is ERC721, Ownable {
 
     error SaleNotOpen();
     error InvalidValue();

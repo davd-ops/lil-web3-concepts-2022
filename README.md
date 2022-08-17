@@ -7,3 +7,4 @@
 
 
 ## [IPFS](scripts/IPFS)
+##### [Trait generation + IPFS upload script](scripts/IPFS)

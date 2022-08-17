@@ -11,7 +11,7 @@ describe('ERC721', function () {
   const BASE_URI = 'ipfs://cid/'
 
   beforeEach(async function () {
-    contract = await ethers.getContractFactory('MintingContract');
+    contract = await ethers.getContractFactory('ERC721MintingContract');
 
     provider = await ethers.provider;
 
