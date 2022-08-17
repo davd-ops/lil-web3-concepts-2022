@@ -4,6 +4,7 @@
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.2",
     "@openzeppelin/contracts": "^4.7.2",
     "chai": "^4.3.6",
+    "erc721a": "^4.2.2",
     "hardhat": "^2.10.1",
     "hardhat-gas-reporter": "^1.0.8",
     "ts-node": "^10.9.1"

@@ -18,7 +18,6 @@ contract ERC721MintingContract is ERC721, Ownable {
         * @dev This contract mints 1 token per transaction, for batch minting visit {../ERC721A}
         * Remember to change the name of the contract
         * In certain unlikely scenarios, there must be changes made to the contract
-        * MAX_MINT_PER_ADDRESS must be changed to uint64 if the supply is above 255
         * MAX_SUPPLY, totalSupply must be changed to uint64 if the supply is above 4,294,967,295
         * MAX_MINT_PER_ADDRESS & uint in mintedAmountByAddress must be changed to uint64 if user is allowed to mint more than 4,294,967,295
         * MINT_PRICE must be changed to uint128 if mint price is above 18 ETH
@@ -61,10 +60,10 @@ contract ERC721MintingContract is ERC721, Ownable {
     /**
         * @dev used for minting new tokens through a public sale
     */
-    function mint() payable public {
+    function mint() payable external {
         if (!SALE_OPEN) revert SaleNotOpen();
-        if (mintedAmountByAddress[_msgSender()] >= MAX_MINT_PER_ADDRESS) revert MintLimitReached();
         if (totalSupply >= MAX_SUPPLY) revert MaxSupplyReached();
+        if (mintedAmountByAddress[_msgSender()] >= MAX_MINT_PER_ADDRESS) revert MintLimitReached();
         if (msg.value != MINT_PRICE) revert InvalidValue();
 
         unchecked {
