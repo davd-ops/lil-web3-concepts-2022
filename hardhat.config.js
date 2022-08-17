@@ -1,6 +1,7 @@
 require("@nomicfoundation/hardhat-chai-matchers");
 require("@nomiclabs/hardhat-ethers");
 require("hardhat-gas-reporter");
+require('dotenv').config({ path: './.env' })
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
