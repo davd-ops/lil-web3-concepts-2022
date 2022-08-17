@@ -5,7 +5,8 @@
     "@openzeppelin/contracts": "^4.7.2",
     "chai": "^4.3.6",
     "hardhat": "^2.10.1",
-    "hardhat-gas-reporter": "^1.0.8"
+    "hardhat-gas-reporter": "^1.0.8",
+    "ts-node": "^10.9.1"
   },
   "dependencies": {
     "dotenv": "^16.0.1",
