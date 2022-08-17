@@ -46,6 +46,13 @@ describe('ERC721', function () {
       expect(await contract.mintedAmountByAddress(owner.address)).to.equal(1);
       expect(await contract.ownerOf(1)).to.equal(owner.address);
     });
+    it('Should be able to transfer token', async function() {
+      await contract.switchSaleStatus();
+      await contract.mint({value: MINT_PRICE_WEI});
+      await contract.transferFrom(owner.address, user.address, 1);
+      expect(await contract.totalSupply()).to.equal(1);
+      expect(await contract.ownerOf(1)).to.equal(user.address);
+    });
     it('Should be able to mint more tokens from the same address ', async function() {
       await contract.switchSaleStatus();
       for (let i = 0; i<2;i++){
