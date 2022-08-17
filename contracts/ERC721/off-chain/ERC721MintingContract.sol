@@ -26,7 +26,7 @@ contract ERC721MintingContract is ERC721, Ownable {
     uint32 immutable public MAX_MINT_PER_ADDRESS; 
     uint32 immutable public MAX_SUPPLY; 
     uint32 public totalSupply; 
-    uint64 public MINT_PRICE; 
+    uint64 immutable public MINT_PRICE; 
     string internal BASE_URI;
 
     mapping (address => uint32) public mintedAmountByAddress; 
