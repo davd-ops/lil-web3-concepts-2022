@@ -42,6 +42,7 @@ describe('Off-chain ERC721', function () {
     it('Should be able to mint one token', async function() {
       await contract.switchSaleStatus();
       await contract.mint({value: MINT_PRICE_WEI});
+      expect(await provider.getBalance(contract.address)).to.equal(MINT_PRICE_WEI);
       expect(await contract.totalSupply()).to.equal(1);
       expect(await contract.mintedAmountByAddress(owner.address)).to.equal(1);
       expect(await contract.ownerOf(1)).to.equal(owner.address);
@@ -76,7 +77,6 @@ describe('Off-chain ERC721', function () {
     it('Should be able to withdraw funds', async function() {
       await contract.switchSaleStatus();
       await contract.mint({value: MINT_PRICE_WEI});
-      expect(await provider.getBalance(contract.address)).to.equal(MINT_PRICE_WEI);
       await contract.withdraw();
       expect(await provider.getBalance(contract.address)).to.equal(0);
     });
