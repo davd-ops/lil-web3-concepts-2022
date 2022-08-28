@@ -142,7 +142,7 @@ contract OnChainERC721 is ERC721, Ownable {
             '", "description": "Colletion of ERC721 tokens with fully on-chain metadata.", "image": "data:image/svg+xml;base64,',
             Base64.base64(bytes(traits.drawSVG(tokenId))),
             '", "attributes":',
-            traits.compileAttributes(tokenId), //THERE'S AN ERROR ::TODO
+            traits.compileAttributes(tokenId), 
             "}"
         ));
 
