@@ -53,6 +53,7 @@ contract OnChainERC721 is ERC721, Ownable {
         * @param _MAX_SUPPLY max possible supply allowed
         * @param _MINT_PRICE mint price of one token
         * @param _traits contract address that stores all necessarry functions and variables for trait computation
+        * @dev this contract is currently O(n), can be made more gas efficient by using O(1)
     */
     constructor(
         string memory _name,
@@ -128,7 +129,7 @@ contract OnChainERC721 is ERC721, Ownable {
          * @param _tokenId the ID of the token to generate the metadata for
          * @return a base64 encoded JSON dictionary of the token's metadata and SVG
      */
-    function tokenURI(uint256 _tokenId) public override view onlyOwner returns (string memory) {
+    function tokenURI(uint256 _tokenId) public override view returns (string memory) {
         if (!_exists(_tokenId)) revert TokenNotMinted();
         if (tx.origin != _msgSender()) revert ContractsNotAllowed();
 
