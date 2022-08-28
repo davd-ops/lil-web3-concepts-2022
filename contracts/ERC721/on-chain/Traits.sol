@@ -4,7 +4,6 @@ pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./Base64.sol";
 import "./StructLib.sol";
 
 import "@openzeppelin/contracts/utils/Strings.sol";
@@ -19,13 +18,13 @@ contract Traits is Ownable {
 
     // mapping from trait type (index) to its name
     string[7] internal traitTypes = [
-        "Fur",
-        "Head",
-        "Ears",
-        "Eyes",
-        "Nose",
-        "Mouth",
-        "Feet"
+        "fur",
+        "head",
+        "ears",
+        "eyes",
+        "nose",
+        "mouth",
+        "feet"
     ];
 
     constructor() {}
@@ -74,6 +73,11 @@ contract Traits is Ownable {
      */
     function generate(uint32 _tokenId, uint256 _seed) public onlyOwner returns (StructLib.Animal memory token) {
         token = selectTraits(_seed);
+        // console.log(token.fur);
+        // console.log(token.head);
+        // console.log(token.eyes);
+        // console.log(token.nose);
+        // console.log(token.feet);
         if (existingCombinations[structToHash(token)] == 0) {
             tokenTraits[_tokenId] = token;
             existingCombinations[structToHash(token)] = _tokenId;
@@ -163,7 +167,7 @@ contract Traits is Ownable {
         * @return a valid SVG of the animal
         * @dev it is possible that there are no traits assigned now
     */
-    function drawSVG(uint32 _tokenId) internal view returns (string memory) {
+    function drawSVG(uint32 _tokenId) public view returns (string memory) {
         StructLib.Animal memory token = tokenTraits[_tokenId];
 
         string memory svgString = string(abi.encodePacked(
@@ -189,7 +193,7 @@ contract Traits is Ownable {
          * @param _value the token's trait associated with the key
          * @return a JSON dictionary for the single attribute
      */
-    function attributeForTypeAndValue(string memory _traitType, string memory _value) internal pure returns (string memory) {
+    function attributeForTypeAndValue(string memory _traitType, string memory _value) public pure returns (string memory) {
         return string(abi.encodePacked(
             '{"trait_type":"',
                 _traitType,
@@ -204,7 +208,7 @@ contract Traits is Ownable {
          * @param _tokenId the ID of the token to compose the metadata for
          * @return a JSON array of all of the attributes for given token ID
      */
-    function compileAttributes(uint32 _tokenId) internal view returns (string memory) {
+    function compileAttributes(uint32 _tokenId) external view returns (string memory) {
         StructLib.Animal memory token = tokenTraits[_tokenId];
         string memory traits;
         traits = string(abi.encodePacked(
@@ -216,6 +220,7 @@ contract Traits is Ownable {
             attributeForTypeAndValue(traitTypes[5], traitData[5][token.mouth].name),',',
             attributeForTypeAndValue(traitTypes[6], traitData[6][token.feet].name),','
         ));
+
         return string(abi.encodePacked(
             '[',
                 traits,
@@ -254,31 +259,6 @@ contract Traits is Ownable {
         block.timestamp,
         _seed
         )));
-    }
-
-    /**
-         * generates a base64 encoded metadata response without referencing off-chain content
-         * @param _tokenId the ID of the token to generate the metadata for
-         * @return a base64 encoded JSON dictionary of the token's metadata and SVG
-     */
-    function tokenURI(uint32 _tokenId) external view onlyOwner returns (string memory) {
-        if (tx.origin != _msgSender()) revert ContractsNotAllowed();
-        
-        string memory metadata = string(abi.encodePacked(
-            '{"name": "',
-            'Animal #',
-            _tokenId.toString(),
-            '", "description": "Colletion of ERC721 tokens with fully on-chain metadata.", "image": "data:image/svg+xml;base64,',
-            Base64.base64(bytes(drawSVG(_tokenId))),
-            '", "attributes":',
-            compileAttributes(_tokenId),
-            "}"
-        ));
-
-        return string(abi.encodePacked(
-            "data:application/json;base64,",
-            Base64.base64(bytes(metadata))
-        ));
     }
 
 }

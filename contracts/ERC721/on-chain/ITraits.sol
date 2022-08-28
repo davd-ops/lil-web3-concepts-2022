@@ -9,5 +9,6 @@ interface ITraits {
     function uploadTraits(uint8, uint8[] calldata, StructLib.Trait[] calldata) external;
     function generate(uint32, uint256) external returns (StructLib.Animal memory);
     function random(uint256) external returns (uint256);
-    function tokenURI(uint256) external view returns (string memory);
+    function drawSVG(uint32) external view returns (string memory);
+    function compileAttributes(uint32) external view returns (string memory);
 }

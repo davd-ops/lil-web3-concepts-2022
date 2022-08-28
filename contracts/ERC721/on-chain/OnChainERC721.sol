@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "hardhat/console.sol";
 import "./StructLib.sol";
+import "./Base64.sol";
 import "./ITraits.sol";
 
 /**
@@ -123,13 +124,33 @@ contract OnChainERC721 is ERC721, Ownable {
     }
 
     /**
-         * calls a function that generates a base64 encoded metadata response without referencing off-chain content
+         * generates a base64 encoded metadata response without referencing off-chain content
          * @param _tokenId the ID of the token to generate the metadata for
          * @return a base64 encoded JSON dictionary of the token's metadata and SVG
      */
-    function tokenURI(uint256 _tokenId) public view override returns (string memory) {     
+    function tokenURI(uint256 _tokenId) public override view onlyOwner returns (string memory) {
         if (!_exists(_tokenId)) revert TokenNotMinted();
-        return traits.tokenURI(_tokenId);
+        if (tx.origin != _msgSender()) revert ContractsNotAllowed();
+
+        uint32 tokenId = uint32(_tokenId);
+
+        string memory metadata = string(abi.encodePacked(
+            '{"name": "',
+            'Animal #',
+            tokenId.toString(),
+            '", "description": "Colletion of ERC721 tokens with fully on-chain metadata.", "image": "data:image/svg+xml;base64,',
+            Base64.base64(bytes(traits.drawSVG(tokenId))),
+            '", "attributes":',
+            traits.compileAttributes(tokenId), //THERE'S AN ERROR ::TODO
+            "}"
+        ));
+
+        return string(abi.encodePacked(
+            "data:application/json;base64,",
+            Base64.base64(bytes(metadata))
+        ));
     }
-    
+
 }
+    
+
